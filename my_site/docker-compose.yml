@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile.blog
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./blog:/app
+    depends_on:
+      - db
+  contact:
+    build:
+      context: .
+      dockerfile: Dockerfile.contact
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./contact:/app
+    depends_on:
+      - db
+  users:
+    build:
+      context: .
+      dockerfile: Dockerfile.users
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./users:/app
+    depends_on:
+      - db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
